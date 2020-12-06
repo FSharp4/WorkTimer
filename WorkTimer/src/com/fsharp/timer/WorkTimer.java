@@ -4,9 +4,7 @@
 package com.fsharp.timer;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.util.Date;
 
@@ -27,6 +25,9 @@ public class WorkTimer extends Thread {
 	String title = "Timer";
 	File file;
 	
+	/**
+	 * Debug Constructor
+	 */
 	public WorkTimer() {
 		//default time = 1hr
 		duration = new Date();
@@ -34,6 +35,10 @@ public class WorkTimer extends Thread {
 		
 	}
 	
+	/**
+	 * Degenerate constructor (no title)
+	 * @param date String object encapsulating a duration (format hh:mm:ss)
+	 */
 	public WorkTimer(String date) {
 		//format hh:mm:ss
 		assert (date.length() == 8);
@@ -45,6 +50,11 @@ public class WorkTimer extends Thread {
 		duration.setTime((3600 * hours + 60 * minutes + seconds) * 1000);
 	}
 	
+	/**
+	 * Constructor method
+	 * @param date String object encapsulating a duration (format hh:mm:ss)
+	 * @param title Title of WorkTimer (i.e. "Chicken in Oven")
+	 */
 	public WorkTimer(String date, String title) {
 		this(date);
 		this.title = title;
@@ -59,7 +69,6 @@ public class WorkTimer extends Thread {
 			try {
 				clearScreen();
 			} catch (IOException | InterruptedException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			currentTime.setTime(System.currentTimeMillis() - start);
@@ -69,14 +78,14 @@ public class WorkTimer extends Thread {
 			formatTime %= 3600;
 			long minutes = formatTime / 60;
 			long seconds = formatTime % 60;
-			System.out.format("\rHours: " + hours + "\tMinutes: " + minutes 
-					+ "\tSeconds: " + seconds + "\t\t\t\t\t\t\t\t\t\t\"");
+			System.out.format("\rHours: %d, \tMinutes: %d, \tSeconds: %d ", hours, minutes, seconds);
 			try {
 				Thread.sleep((long) (1000));
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
+		System.out.println();
 		System.out.println(this.title + " done!");
 		try {
 			playSound();
@@ -86,10 +95,20 @@ public class WorkTimer extends Thread {
 		}
 	}
 	
+	/**
+	 * Clears screen via static subclass methods
+	 * @throws IOException thrown at subclass
+	 * @throws InterruptedException thrown at subclass
+	 */
 	public static void clearScreen() throws IOException, InterruptedException {  
 		CLS.main();
 	}
 	
+	/**
+	 * Sets the audio file to trigger on timer finish
+	 * @param filename File name
+	 * @return boolean flag if setting was successful.
+	 */
 	public boolean setFile(String filename) {
 		try {
 			file = new File("res/" + filename + ".wav");
@@ -121,9 +140,12 @@ public class WorkTimer extends Thread {
 		}
 	}
 	
+	/**
+	 * Main method
+	 * @param args [ Duration ("hh:mm:ss"), Title, Sound filename ]
+	 */
 	public static void main(String args[]) {
 		WorkTimer wT = null;
-		String title = "Timer";
 		if (args.length >= 1) {
 			wT = new WorkTimer(args[0]);
 			if (args.length >= 2) {
