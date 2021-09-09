@@ -4,3 +4,14 @@ WorkTimer/.classpath
 *.un~
 *.swp
 *.java~
+WorkTimer/res/Blood.wav
+WorkTimer/res/testFile.txt
+WorkTimer/res/Spirit.wav
+WorkTimer/res/OldMan.wav
+WorkTimer/res/Item.wav
+WorkTimer/res/Hunting.wav
+WorkTimer/res/House.wav
+WorkTimer/res/Hot.wav
+WorkTimer/res/Cave.wav
+
+*/.settings/*
