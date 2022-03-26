@@ -29,9 +29,10 @@ public class WorkTimer extends Thread {
   String title = "Timer";
   File file;
   private static boolean snooze = true; // Not ideal but users can always run many jvm
-
+  private static int PAGE_SIZE = 30;
   private static final String DISENGAGE = "Disengage";
   private static final Scanner sc = new Scanner(System.in);
+  private static String CLEAN_SCREEN = "";
 
   /**
    * Debug Constructor
@@ -170,6 +171,11 @@ public class WorkTimer extends Thread {
    * @param args [ Duration ("hh:mm:ss"), Title, Sound filename ]
    */
   public static void main(String args[]) {
+    StringBuilder sb = new StringBuilder();
+    for (int i = 0; i < PAGE_SIZE; i++) {
+      sb.append("\n");
+    }
+    CLEAN_SCREEN = sb.toString();
     WorkTimer wT = null;
     String filename = "Item";
     if (args.length >= 1) {
@@ -201,7 +207,7 @@ public class WorkTimer extends Thread {
 
   private static class CLS {
     static void main() throws IOException, InterruptedException {
-      Runtime.getRuntime().exec("clear");
+      System.out.print(CLEAN_SCREEN);
     }
   }
 

@@ -15,3 +15,5 @@ WorkTimer/res/Hot.wav
 WorkTimer/res/Cave.wav
 
 */.settings/*
+WorkTimer/.vscode/settings.json
+*.jar
